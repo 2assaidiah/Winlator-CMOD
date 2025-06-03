@@ -2263,6 +2263,7 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
         }
         else if (!container.isBionic() && graphicsDriver.equals("turnip") && !selectedDriverVersion.equals(DefaultVersion.TURNIP_GLIBC)) {
             selectedDriverVersion = DefaultVersion.TURNIP_GLIBC;
+            Log.d("GraphicsDriverExtraction", "selectedDriverVersion at extraction: " + selectedDriverVersion + " (graphicsDriver=" + graphicsDriver + ")"); // Log to check selectedDriverVersion
         }
 
         // Adjust cacheId based on the graphics driver and version
