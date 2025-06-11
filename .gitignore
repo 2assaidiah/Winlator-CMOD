@@ -7,3 +7,7 @@
 /captures
 .externalNativeBuild
 .cxx
+app/src/main/assets/imagefs.txz 
+app/src/main/assets/container_pattern.tzst
+app/src/main/assets/container_pattern_common.tzst
+app/src/main/assets/imagefs.txz
