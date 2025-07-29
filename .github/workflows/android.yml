@@ -22,7 +22,7 @@ jobs:
     - name: Clone SDL2 and OpenXR-SDK
       run: |
         mkdir -p app/src/main/cpp
-        git clone --recursive https://github.com/libsdl-org/SDL.git app/src/main/cpp/sdl2
+        git clone --recursive --branch SDL2 https://github.com/libsdl-org/SDL.git app/src/main/cpp/sdl2
         git clone --recursive https://github.com/KhronosGroup/OpenXR-SDK.git app/src/main/cpp/OpenXR-SDK
         
     - name: download missing files
