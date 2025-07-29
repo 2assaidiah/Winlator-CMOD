@@ -13,7 +13,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-      
+
+    - name: Clean previously referenced folders
+      run: |
+        rm -rf app/src/main/cpp/sdl2
+        rm -rf app/src/main/cpp/OpenXR-SDK
+
+    - name: Clone SDL2 and OpenXR-SDK
+      run: |
+        mkdir -p app/src/main/cpp
+        git clone --recursive https://github.com/libsdl-org/SDL.git app/src/main/cpp/sdl2
+        git clone --recursive https://github.com/KhronosGroup/OpenXR-SDK.git app/src/main/cpp/OpenXR-SDK
+        
     - name: download missing files
       run: |
        cd ./app/src/main/assets
