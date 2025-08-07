@@ -25,17 +25,26 @@ public class Container {
         BUTTON_A, BUTTON_B, BUTTON_X, BUTTON_Y, BUTTON_GRIP, BUTTON_TRIGGER,
         THUMBSTICK_UP, THUMBSTICK_DOWN, THUMBSTICK_LEFT, THUMBSTICK_RIGHT
     }
-    public static final String DEFAULT_ENV_VARS = "ZINK_DESCRIPTORS=lazy ZINK_DEBUG=compact MESA_SHADER_CACHE_DISABLE=false MESA_SHADER_CACHE_MAX_SIZE=512MB mesa_glthread=true WINEESYNC=1 MESA_VK_WSI_PRESENT_MODE=mailbox TU_DEBUG=noconform,sysmem DXVK_HUD=devinfo,fps,frametimes,gpuload,version,api MANGOHUD=0 MANGOHUD_CONFIG=engine_version,gpu_stats=0";
+    public static final String DEFAULT_ENV_VARS = "ZINK_DESCRIPTORS=lazy ZINK_DEBUG=compact MESA_SHADER_CACHE_DISABLE=false MESA_SHADER_CACHE_MAX_SIZE=512MB mesa_glthread=true WINEESYNC=1 TU_DEBUG=noconform,sysmem DXVK_HUD=devinfo,fps,frametimes,gpuload,version,api MANGOHUD=0 MANGOHUD_CONFIG=engine_version,gpu_stats=0";
     public static final String DEFAULT_SCREEN_SIZE = "1280x720";
     public static final String DEFAULT_GRAPHICS_DRIVER = "wrapper";
     public static final String DEFAULT_AUDIO_DRIVER = "alsa-reflector";
     public static final String DEFAULT_EMULATOR = "FEXCore";
     public static final String DEFAULT_DXWRAPPER = "dxvk";
     public static final String DEFAULT_DXWRAPPERCONFIG = "version=" + DefaultVersion.DXVK + ",framerate=0,maxDeviceMemory=0,async=0,asyncCache=0" + ",vkd3dVersion=" + DefaultVersion.VKD3D + ",vkd3dLevel=12_1";
-    public static final String DEFAULT_GRAPHICSDRIVERCONFIG = "version=" + DefaultVersion.WRAPPER + ";blacklistedExtensions=" + ";maxDeviceMemory=0";
+    public static final String DEFAULT_GRAPHICSDRIVERCONFIG = "version=" + DefaultVersion.WRAPPER + ";blacklistedExtensions=" + ";maxDeviceMemory=0" + ";adrenotoolsTurnip=1" + ";frameSync=Normal";
     public static final String DEFAULT_DDRAWRAPPER = "wined3d";
     public static final String DEFAULT_WINCOMPONENTS = "direct3d=1,directsound=0,directmusic=0,directshow=0,directplay=0,xaudio=0,vcrun2010=1,opengl=0";
     public static final String FALLBACK_WINCOMPONENTS = "direct3d=1,directsound=1,directmusic=1,directshow=1,directplay=1,xaudio=1,vcrun2010=1,opengl=0";
+
+    public static final String[] MEDIACONV_ENV_VARS = {
+            "MEDIACONV_AUDIO_DUMP_FILE=/data/data/com.winlator.cmod/files/imagefs/home/xuser/audio.dmp",
+            "MEDIACONV_VIDEO_DUMP_FILE=/data/data/com.winlator.cmod/files/imagefs/home/xuser/video.dmp",
+            "MEDIACONV_VIDEO_TRANSCODED_FILE=/data/data/com.winlator.cmod/files/imagefs/home/xuser/transcoded.mkv",
+            "MEDIACONV_AUDIO_TRANSCODED_FILE=/data/data/com.winlator.cmod/files/imagefs/home/xuser/transcoded.wav",
+            "MEDIACONV_BLANK_AUDIO_FILE=/data/data/com.winlator.cmod/files/imagefs/home/xuser/blank.wav",
+            "MEDIACONV_BLANK_VIDEO_FILE=/data/data/com.winlator.cmod/files/imagefs/home/xuser/blank.mkv",
+    };
     public static final String DEFAULT_DRIVES = "D:"+Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+"E:/data/data/com.winlator.cmod/storage";
     public static final byte STARTUP_SELECTION_NORMAL = 0;
     public static final byte STARTUP_SELECTION_ESSENTIAL = 1;
@@ -74,6 +83,8 @@ public class Container {
     private String box64Version = DefaultVersion.BOX64;
     private String emulator;
     private boolean isRelativeMouseMovement;
+
+    private boolean gstreamerWorkaround = false;
 
     private ContainerManager containerManager;
 
@@ -290,6 +301,14 @@ public class Container {
         this.rootDir = rootDir;
     }
 
+    public boolean isGstreamerWorkaround() { // Add this getter
+        return this.gstreamerWorkaround;
+    }
+
+    public void setGstreamerWorkaround(boolean gstreamerWorkaround) { // Add this setter
+        this.gstreamerWorkaround = gstreamerWorkaround;
+    }
+
     public void setExtraData(JSONObject extraData) {
         this.extraData = extraData;
     }
@@ -436,6 +455,7 @@ public class Container {
             data.put("lc_all", lc_all);
             data.put("primaryController", primaryController);
             data.put("controllerMapping", controllerMapping);
+            data.put("gstreamerWorkaround", gstreamerWorkaround);
             if (!WineInfo.isMainWineVersion(wineVersion)) data.put("wineVersion", wineVersion);
             FileUtils.writeString(getConfigFile(), data.toString());
         }
@@ -546,6 +566,9 @@ public class Container {
                 case "controllerMapping" :
                     controllerMapping = data.getString(key);
                     break;
+                case "gstreamerWorkaround" : // Add this case
+                    setGstreamerWorkaround(data.getBoolean(key));
+                    break;
             }
         }
     }
@@ -636,7 +659,5 @@ public class Container {
         }
         return false;
     }
-
-
 
 }
