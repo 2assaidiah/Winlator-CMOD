@@ -13,24 +13,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
-    - name: Clean previously referenced folders
-      run: |
-        rm -rf app/src/main/cpp/sdl2
-        rm -rf app/src/main/cpp/OpenXR-SDK
-
-    - name: Clone SDL2 and OpenXR-SDK
-      run: |
-        mkdir -p app/src/main/cpp
-        git clone --recursive --branch SDL2 https://github.com/libsdl-org/SDL.git app/src/main/cpp/sdl2
-        git clone --recursive https://github.com/KhronosGroup/OpenXR-SDK.git app/src/main/cpp/OpenXR-SDK
+    - with: 
+            submodules: recursive
         
     - name: download missing files
       run: |
        cd ./app/src/main/assets
 
        wget -O proton-9.0-arm64ec.txz https://github.com/Vivsi1/winlator/releases/download/Proton-and-ImageFS/proton-9.0-arm64ec.txz
-       wget -O proton-9.0-x86_64.txz https://github.com/Vivsi1/winlator/releases/download/Proton-and-ImageFS/proton-9.0-x86_64.txz
+       wget -O proton-9.0-x86_64.txz https://github.com/TGP-17/wine/releases/download/proton/proton-9.0-x86_64.txz
        wget -O imagefs.txz https://github.com/Vivsi1/winlator/releases/download/Proton-and-ImageFS/imagefs.txz
     
     - name: set up JDK 11
