@@ -157,7 +157,7 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
     private short taskAffinityMask = 0;
     private short taskAffinityMaskWoW64 = 0;
     private int frameRatingWindowId = -1;
-    private boolean pointerCaptureRequested = false; // Flag to track if pointer capture was requested
+    private boolean cursorLock = false; // Flag to track if pointer capture was requested
     private final float[] xform = XForm.getInstance();
     private ContentsManager contentsManager;
     private boolean navigationFocused = false;
@@ -836,6 +836,24 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
                 drawerLayout.closeDrawers();
                 xServer.setRelativeMouseMovement(isRelativeMouseMovement);
                 break;
+            case R.id.main_menu_true_mouse_control:
+                cursorLock = !cursorLock;
+                if (cursorLock) {
+                    touchpadView.requestPointerCapture();
+                    touchpadView.setOnCapturedPointerListener(new View.OnCapturedPointerListener() {
+                        @Override
+                        public boolean onCapturedPointer(View view, MotionEvent event) {
+                            handleCapturedPointer(event);
+                            return true;
+                        }
+                    });
+                }
+                else {
+                    touchpadView.releasePointerCapture();
+                    touchpadView.setOnCapturedPointerListener(null);
+                }
+                drawerLayout.closeDrawers();
+                break;
             case R.id.main_menu_toggle_fullscreen:
                 renderer.toggleFullscreen();
                 drawerLayout.closeDrawers();
@@ -923,30 +941,9 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        boolean cursorLock = preferences.getBoolean("cursor_lock", false);
 
-        if (hasFocus && !pointerCaptureRequested && cursorLock) {
-            // Ensure TouchpadView and other relevant views are focused
-            touchpadView.setFocusable(View.FOCUSABLE);
-            touchpadView.setFocusableInTouchMode(true);
-            touchpadView.requestFocus();
+        if (hasFocus && cursorLock) {
             touchpadView.requestPointerCapture();
-
-            touchpadView.setOnCapturedPointerListener(new View.OnCapturedPointerListener() {
-                @Override
-                public boolean onCapturedPointer(View view, MotionEvent event) {
-                    handleCapturedPointer(event);
-                    return true;
-                }
-            });
-
-            pointerCaptureRequested = true; // Ensure this is only called once
-
-        } else if (!hasFocus) {
-            if (touchpadView != null) {
-                touchpadView.releasePointerCapture();
-                touchpadView.setOnCapturedPointerListener(null);
-            }
         }
     }
 
@@ -1567,38 +1564,6 @@ public class XServerDisplayActivity extends AppCompatActivity implements Navigat
             if (event.getKeyCode() == KeyEvent.KEYCODE_BUTTON_MODE || event.getKeyCode() == KeyEvent.KEYCODE_HOME || event.getKeyCode() == KeyEvent.KEYCODE_BUTTON_SELECT) {
                 boolean handled = inputControlsView.onKeyEvent(event) || (winHandler != null && winHandler.onKeyEvent(event)) && (xServer != null && xServer.keyboard.onKeyEvent(event));
                 return true;
-            }
-        }
-
-        if (event.getAction() == KeyEvent.ACTION_DOWN && event.getKeyCode() == KeyEvent.KEYCODE_VOLUME_DOWN) {
-            // Release pointer capture when Volume Down key is pressed
-            if (touchpadView != null && pointerCaptureRequested) {
-                touchpadView.releasePointerCapture();
-                touchpadView.setOnCapturedPointerListener(null);
-                pointerCaptureRequested = false;
-
-                // Show toast message for pointer release
-                showToast(this, "Pointer capture released for 10 seconds");
-
-                // Schedule recapture after 10 seconds
-                new Handler(Looper.getMainLooper()).postDelayed(() -> {
-                    if (touchpadView != null) {
-                        touchpadView.requestPointerCapture();
-                        touchpadView.setOnCapturedPointerListener(new View.OnCapturedPointerListener() {
-                            @Override
-                            public boolean onCapturedPointer(View view, MotionEvent event) {
-                                handleCapturedPointer(event);
-                                return true;
-                            }
-                        });
-                        pointerCaptureRequested = true;
-
-                        // Show toast message for pointer recapture
-                        showToast(this, "Pointer re-captured. If not working, press again to release and re-capture");
-                    }
-                }, RECAPTURE_DELAY_MS);
-
-                return true; // Indicate that the event was handled
             }
         }
 

@@ -75,8 +75,6 @@ public class SettingsFragment extends Fragment {
     public static final String DEFAULT_EXPORT_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/Winlator/Frontend";
     private SharedPreferences preferences;
 
-	// Disable or enable True Mouse Control
-	private CheckBox cbCursorLock;
     // Disable or enable Xinput Processing
     private CheckBox cbXinputToggle;
 
@@ -152,11 +150,7 @@ public class SettingsFragment extends Fragment {
 
         initCustomApiKeySettings(view);
 
-        // Initialize the cursor lock checkbox
-        cbCursorLock = view.findViewById(R.id.CBCursorLock);
-        cbCursorLock.setChecked(preferences.getBoolean("cursor_lock", true));
-
-        // Initialize the xinput toggle checkbox
+         // Initialize the xinput toggle checkbox
         cbXinputToggle = view.findViewById(R.id.CBXinputToggle);
         cbXinputToggle.setChecked(preferences.getBoolean("xinput_toggle", false));
 
@@ -376,7 +370,6 @@ public class SettingsFragment extends Fragment {
             editor.putBoolean("enable_wine_debug", cbEnableWineDebug.isChecked());
             editor.putBoolean("enable_box64_logs", cbEnableBox64Logs.isChecked());
             editor.putInt("trigger_type", triggerRbIds.indexOf(rgTriggerType.getCheckedRadioButtonId()));
-            editor.putBoolean("cursor_lock", cbCursorLock.isChecked()); // Save cursor lock state
             editor.putBoolean("xinput_toggle", cbXinputToggle.isChecked()); // Save xinput toggle state
             editor.putBoolean("enable_file_provider", cbEnableFileProvider.isChecked());
             editor.putBoolean("open_with_android_browser", cbOpenInBrowser.isChecked());
