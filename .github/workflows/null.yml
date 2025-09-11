@@ -48,5 +48,5 @@ jobs:
       with:
         name: "Winlator-CMOD ${{ env.VERSION }}-(git-${{ env.SHORT_SHA }})"
         tag_name: ${{ env.SHORT_SHA }}
-        prerelease: true
+        release: true
         files: ./app/build/outputs/apk/debug/app-debug.apk
