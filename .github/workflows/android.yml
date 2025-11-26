@@ -2,9 +2,9 @@ name: Android CI
 
 on:
   push:
-    branches: [ "winlator_bionic" ]
+    branches: [ "glibc_revisited" ]
   pull_request:
-    branches: [ "winlator_bionic" ]
+    branches: [ "glibc_revisited" ]
 
 jobs:
   build:
