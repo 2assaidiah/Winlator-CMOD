@@ -32,14 +32,16 @@ public class EnvVarsView extends FrameLayout {
         {"ZINK_DEBUG", "SELECT_MULTIPLE", "nir", "spirv", "tgsi", "validation", "sync", "compact", "noreorder"},
         {"MESA_SHADER_CACHE_DISABLE", "CHECKBOX", "false", "true"},
         {"mesa_glthread", "CHECKBOX", "false", "true"},
+        {"PULSE_LATENCY_MSEC", "NUMBER"},
         {"WINEESYNC", "CHECKBOX", "0", "1"},
         {"TU_DEBUG", "SELECT_MULTIPLE", "forcecb", "nocb", "startup", "nir", "nobin", "sysmem", "gmem", "forcebin", "layout", "noubwc", "nomultipos", "nolrz", "nolrzfc", "perf", "perfc", "flushall", "syncdraw", "push_consts_per_stage", "rast_order", "unaligned_store", "log_skip_gmem_ops", "dynamic", "bos", "3d_load", "fdm", "noconform", "rd"},
         {"DXVK_HUD", "SELECT_MULTIPLE", "scale=0.5", "scale=0.7", "opacity=0.5", "opacity=0.7", "devinfo", "fps", "frametimes", "submissions", "drawcalls", "pipelines", "descriptors", "memory", "gpuload", "version", "api", "cs", "compiler", "samplers"},
-        {"MESA_EXTENSION_MAX_YEAR", "TEXT"},
-        {"WRAPPER_MAX_IMAGE_COUNT", "TEXT"},
-        {"MESA_GL_VERSION_OVERRIDE", "TEXT"},
-        {"PULSE_LATENCY_MSEC", "NUMBER"},
+        {"VKD3D_SHADER_MODEL", "TEXT"},
+        {"VKD3D_FRAME_RATE", "SELECT", "0", "25", "30", "40", "50", "60", "70", "90", "120", "144"},
+        {"IR3_SHADER_DEBUG", "SELECT_MULTIPLE", "nouboopt", "nopreamble", "noearlypreamble"},
+        {"FD_DEV_FEATURES", "SELECT_MULTIPLE", "enable_tp_ubwc_flag_hint=1", "storage_8bit=1"},
         {"WINE_DO_NOT_CREATE_DXGI_DEVICE_MANAGER", "CHECKBOX", "0", "1"},
+        {"WRAPPER_MAX_IMAGE_COUNT", "TEXT"},
         {"WINE_NEW_MEDIASOURCE", "CHECKBOX", "0", "1"}
     };
     private final LinearLayout container;
@@ -250,3 +252,4 @@ public class EnvVarsView extends FrameLayout {
     }
 
 }
+
