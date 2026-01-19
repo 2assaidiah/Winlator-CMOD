@@ -2,9 +2,9 @@ name: Android CI
 
 on:
   push:
-    branches: [ "winlator_bionic" ]
+    branches: [ "winlator_bionic_precompute" ]
   pull_request:
-    branches: [ "winlator_bionic" ]
+    branches: [ "winlator_bionic_precompute" ]
 
 jobs:
   build:
@@ -43,10 +43,9 @@ jobs:
     - name: "List files"
       run: |
         ls -la app/src/main/assets
-    - name: "Create Release"
-      uses: softprops/action-gh-release@v2
+
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
       with:
-        name: "Winlator-CMOD ${{ env.VERSION }}-(git-${{ env.SHORT_SHA }})"
-        tag_name: ${{ env.SHORT_SHA }}
-        prerelease: false
-        files: ./app/build/outputs/apk/debug/app-debug.apk
+       name: Winlator APK
+       path: app/build/outputs/apk/debug/app-debug.apk
