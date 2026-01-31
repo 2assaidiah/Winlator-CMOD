@@ -2,9 +2,9 @@ name: Android CI
 
 on:
   push:
-    branches: [ "winlator_bionic" ]
+    branches: [ "touch_controls" ]
   pull_request:
-    branches: [ "winlator_bionic" ]
+    branches: [ "touch_controls" ]
 
 jobs:
   build:
