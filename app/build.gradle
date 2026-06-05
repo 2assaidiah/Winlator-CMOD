@@ -128,8 +128,8 @@ android {
         // We’re preserving Winlator’s request to keep targetSdkVersion at 28
         targetSdkVersion 28
 
-        versionCode 20
-        versionName "7.1.4x-cmod"
+        versionCode 21
+        versionName "7.1.5x-cmod-gtme"
 
         // External native build from Winlator
         externalNativeBuild {
@@ -156,8 +156,14 @@ android {
     buildTypes {
         debug {
             minifyEnabled false
+            signingConfig signingConfigs.debug
         }
-        // If you have a release build type, add it here
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug // Use debug key for non-Play Store release
+        }
     }
 
     signingConfigs {
