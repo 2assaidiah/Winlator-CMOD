@@ -195,9 +195,9 @@ android {
         jniLibs {
             useLegacyPackaging = true
         }
-        // Fix duplicate baseline.prof from multiple dependencies
+        // Fix duplicate baseline.prof from multiple AndroidX dependencies
         resources {
-            excludes += ['assets/dexopt/baseline.prof']
+            excludes.add('assets/dexopt/baseline.prof')
         }
     }
 }
