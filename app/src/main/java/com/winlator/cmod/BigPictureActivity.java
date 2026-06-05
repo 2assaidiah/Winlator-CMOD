@@ -467,6 +467,12 @@ public class BigPictureActivity extends AppCompatActivity {
         });
 
 
+        // Create WebView Crashpad cache directory to prevent chromium crash
+        File crashpadDir = new File(getCacheDir(), "WebView/Crashpad");
+        if (!crashpadDir.exists()) {
+            crashpadDir.mkdirs();
+        }
+
         webView = findViewById(R.id.webView);
         webView.getSettings().setJavaScriptEnabled(true); // Enable JavaScript
         webView.setWebViewClient(new WebViewClient()); // Prevent redirecting to external browser
@@ -1367,9 +1373,7 @@ public class BigPictureActivity extends AppCompatActivity {
 
 
     private void playMp3(File mp3File) {
-        if (mediaPlayer != null) {
-            mediaPlayer.release();  // Release any existing player
-        }
+        releaseMediaPlayer();  // Release any existing player
 
         mediaPlayer = new MediaPlayer();
         try {
@@ -1379,8 +1383,13 @@ public class BigPictureActivity extends AppCompatActivity {
 
             mediaPlayer.prepare();  // Prepare synchronously
             mediaPlayer.setOnPreparedListener(mp -> mediaPlayer.start());  // Start playback once prepared
+            mediaPlayer.setOnErrorListener((mp, what, extra) -> {
+                releaseMediaPlayer();
+                return true;
+            });
         } catch (IOException e) {
             e.printStackTrace();
+            releaseMediaPlayer();
         }
     }
 
@@ -1564,9 +1573,7 @@ public class BigPictureActivity extends AppCompatActivity {
     }
 
     private void playDefaultMp3FromAssets() {
-        if (mediaPlayer != null) {
-            mediaPlayer.release();  // Release any existing player
-        }
+        releaseMediaPlayer();  // Release any existing player
 
         mediaPlayer = new MediaPlayer();
         try {
@@ -1576,14 +1583,31 @@ public class BigPictureActivity extends AppCompatActivity {
             mediaPlayer.prepare();
             mediaPlayer.start();
             afd.close();
+            mediaPlayer.setOnErrorListener((mp, what, extra) -> {
+                releaseMediaPlayer();
+                return true;
+            });
         } catch (IOException e) {
             e.printStackTrace();
+            releaseMediaPlayer();
         }
     }
 
 
 
 
+
+    private void releaseMediaPlayer() {
+        if (mediaPlayer != null) {
+            try {
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.stop();
+                }
+            } catch (IllegalStateException ignored) {}
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+    }
 
     private void stopBackgroundMusic() {
         // Stop YouTube WebView
@@ -1591,12 +1615,8 @@ public class BigPictureActivity extends AppCompatActivity {
             webView.loadUrl("about:blank");
         }
 
-        // Stop MP3 playback
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.stop();
-            mediaPlayer.release(); // Release resources
-            mediaPlayer = null;
-        }
+        // Stop and release MP3 playback
+        releaseMediaPlayer();
     }
 
 
@@ -1604,6 +1624,16 @@ public class BigPictureActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         stopBackgroundMusic(); // Ensure MP3 or YouTube stops when activity is paused
+    }
+
+    @Override
+    protected void onDestroy() {
+        stopBackgroundMusic();
+        if (webView != null) {
+            webView.destroy();
+            webView = null;
+        }
+        super.onDestroy();
     }
 
     // Import Animations:

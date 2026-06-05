@@ -17,7 +17,7 @@
             style="@style/ComboBox"
             android:layout_width="match_parent"
             android:id="@+id/SCSMT"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dropdown"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
             style="@style/ComboBox"
             android:layout_width="match_parent"
             android:id="@+id/SGPUName"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dropdown"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:id="@+id/SVideoMemorySize"
             android:entries="@array/video_memory_size_entries"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dropdown"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -51,7 +51,7 @@
             style="@style/ComboBox"
             android:layout_width="match_parent"
             android:id="@+id/SStrictShaderMath"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
             style="@style/ComboBox"
             android:layout_width="match_parent"
             android:id="@+id/SOffscreenRenderingMode"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
             style="@style/ComboBox"
             android:layout_width="match_parent"
             android:id="@+id/SRenderer"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dropdown" />
 
     </LinearLayout>
 </ScrollView>

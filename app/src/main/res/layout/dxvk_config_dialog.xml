@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:id="@+id/SVKD3DVersion"
             android:entries="@array/vkd3d_version_entries"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -29,7 +29,7 @@
             style="@style/ComboBox"
             android:layout_width="match_parent"
             android:id="@+id/SVKD3DFeatureLevel"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:layout_width="match_parent"
             android:id="@+id/SDXVKVersion"
             android:entries="@array/dxvk_version_entries"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dropdown"/>
 
         <LinearLayout
             android:id="@+id/LLAsync"
@@ -102,7 +102,7 @@
             android:layout_width="match_parent"
             android:id="@+id/SDDRAWrapper"
             android:entries="@array/ddrawrapper_entries"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dropdown" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
             android:layout_width="match_parent"
             android:id="@+id/SFramerate"
             android:entries="@array/dxvk_framerate_entries"
-            android:spinnerMode="dialog"/>
+            android:spinnerMode="dropdown"/>
 
     </LinearLayout>
 </ScrollView>

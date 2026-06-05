@@ -42,7 +42,7 @@
                     android:layout_width="match_parent"
                     android:id="@+id/SScreenSize"
                     android:entries="@array/screen_size_entries"
-                    android:spinnerMode="dialog" />
+                    android:spinnerMode="dropdown" />
             </LinearLayout>
 
             <LinearLayout
@@ -181,7 +181,7 @@
                 android:layout_weight="1"
                 android:id="@+id/SDXWrapper"
                 android:entries="@array/dxwrapper_entries"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dropdown" />
 
             <ImageButton
                 style="@style/ListMenuButton"
@@ -376,7 +376,7 @@
                         android:id="@+id/SBox64Version"
                         android:layout_width="match_parent"
                         android:entries="@array/box64_version_entries"
-                        android:spinnerMode="dialog" />
+                        android:spinnerMode="dropdown" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -470,7 +470,7 @@
                         style="@style/ComboBox"
                         android:id="@+id/SControlsProfile"
                         android:layout_width="match_parent"
-                        android:spinnerMode="dialog" />
+                        android:spinnerMode="dropdown" />
 
                     <CheckBox
                         android:id="@+id/CBDisabledXInput"
@@ -630,7 +630,7 @@
                             android:id="@+id/SSharpnessEffect"
                             style="@style/ComboBox"
                             android:entries="@array/vkbasalt_sharpness_entries"
-                            android:spinnerMode="dialog" />
+                            android:spinnerMode="dropdown" />
 
                         <LinearLayout
                             android:layout_width="match_parent"

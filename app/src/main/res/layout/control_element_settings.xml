@@ -19,7 +19,7 @@
             style="@style/ComboBox"
             android:id="@+id/SType"
             android:layout_width="match_parent"
-            android:spinnerMode="dialog" />
+            android:spinnerMode="dropdown" />
 
         <LinearLayout
             android:id="@+id/LLShape"
@@ -36,7 +36,7 @@
                 style="@style/ComboBox"
                 android:id="@+id/SShape"
                 android:layout_width="match_parent"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dropdown" />
         </LinearLayout>
 
         <LinearLayout
@@ -78,7 +78,7 @@
                 style="@style/ComboBox"
                 android:id="@+id/SRange"
                 android:layout_width="match_parent"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dropdown" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -139,7 +139,7 @@
                 style="@style/ComboBox"
                 android:id="@+id/SBindingUp"
                 android:layout_width="match_parent"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dropdown" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -150,7 +150,7 @@
                 style="@style/ComboBox"
                 android:id="@+id/SBindingRight"
                 android:layout_width="match_parent"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dropdown" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -161,7 +161,7 @@
                 style="@style/ComboBox"
                 android:id="@+id/SBindingDown"
                 android:layout_width="match_parent"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dropdown" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
                 style="@style/ComboBox"
                 android:id="@+id/SBindingLeft"
                 android:layout_width="match_parent"
-                android:spinnerMode="dialog" />
+                android:spinnerMode="dropdown" />
         </LinearLayout>
 
         <CheckBox
