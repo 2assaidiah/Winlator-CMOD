@@ -116,6 +116,13 @@ tasks.register("prepareKotlinBuildScriptModel"){}
 downloadProton.dependsOn(downloadImageFS)
 preBuild.dependsOn(downloadProton)
 
+// Disable baseline profile generation to prevent duplicate baseline.prof in APK
+tasks.whenTaskAdded { task ->
+    if (task.name == 'generateReleaseArtProfile' || task.name == 'compileReleaseArtProfile') {
+        task.enabled = false
+    }
+}
+
 android {
     namespace 'com.winlator.cmod'
     // Keep compileSdk from your current config. If you want to match Termux-X11, you could set to 34.
