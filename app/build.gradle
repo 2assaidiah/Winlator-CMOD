@@ -160,7 +160,7 @@ android {
         }
         release {
             minifyEnabled true
-            shrinkResources true
+            shrinkResources false // Disabled: AndroidX preference/animated-selector IDs get stripped
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.debug // Use debug key for non-Play Store release
         }
