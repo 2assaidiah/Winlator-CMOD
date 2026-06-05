@@ -122,6 +122,13 @@ android {
     compileSdk 34
     buildToolsVersion "35.0.0"
 
+    lintOptions {
+        checkReleaseBuilds true
+        abortOnError true
+        // Not for Play Store - targetSdkVersion 28 is intentional for Winlator compatibility
+        disable 'ExpiredTargetSdkVersion'
+    }
+
     defaultConfig {
         applicationId "com.winlator.cmod"
         minSdkVersion 26
